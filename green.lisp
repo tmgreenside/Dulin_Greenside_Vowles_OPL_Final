@@ -32,9 +32,13 @@
         while line do (format t "~a~%" line))
       (close in)
    )
-   )
+  )
+)
+
+(defun myReadChar (line)
+  (write-line (reverse line))
 )
 
 (myRead)
 
-(write-line "Done")
+(myReadChar "I have shit on my ass")
