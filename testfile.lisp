@@ -10,6 +10,14 @@
 
 ;(setq x '(a b c d))
 
-(print (iterf '(a b c d) nil) )
+(defun isNil (str)
+  (if (null str)
+    0
+    1
+  )
+)
+
+(print (isNil 1))
+;(print (iterf '(a b c d) nil) )
 ;     (load "testfile.lisp")
 ;
