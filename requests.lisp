@@ -10,7 +10,7 @@
 )
 
 ;gets all links from a page
-;this is a list of values!
+;returns a list of strings that are lists.
 (defun get_all_links (page)
   (cl-ppcre:all-matches-as-strings "href=[\'\"]?([^\'\" >]+)" (get_page page))
 )
@@ -18,14 +18,15 @@
 ; page is the page being searched
 ; base is the base set of the page
 ; links_list is the full list of what was taken from the website
-(defun get_all_links_full (page base links_list)
+(defun get_all_links_full (page base links_list fixed_links)
   (if (null links_list)
-    links_list ; empty list
+    fixed_links ; empty list
 
-    ;;most of this works! just have an issue with iterating through the list, then adding the list at the end. So, then to figure that out!
-  (if (<= (cl-ppcre:scan "www" (remove_prefix (first links_list))) 1 )
-    (append (concatenate 'string base (remove_prefix (first links_list))) (get_all_links_full page base (cdr links_list)))
-    (append (remove_prefix (first links_list)) (get_all_links_full page base (cdr links_list)))
+  (if (<= (cl-ppcre:scan "" (remove_prefix (first links_list))) 1 )
+
+    (get_all_links_full page base (cdr links_list) (push (concatenate 'string base (remove_prefix (first links_list))) fixed_links))
+
+
   ))
 )
 
@@ -41,4 +42,4 @@
 ;***************************;
 ;Don't delete this print line! IT is for the function get_all_links_full that is currently broken
 
-;(print (get_all_links_full "https://www.tutorialspoint.com/lisp/lisp_functions.htm" "https://www.tutorialspoint.com" (get_all_links "https://www.tutorialspoint.com/lisp/lisp_functions.htm")))
+(print (get_all_links_full "https://www.tutorialspoint.com/lisp/lisp_functions.htm" "https://www.tutorialspoint.com" (get_all_links "https://www.tutorialspoint.com/lisp/lisp_functions.htm") nil ))

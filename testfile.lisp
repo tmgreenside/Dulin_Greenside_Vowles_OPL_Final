@@ -1,13 +1,15 @@
 
 
 
-(defun iterf (listt)
+(defun iterf (listt emptyLst)
   (if (null listt)
-    '()
-    (append  '(first listt) (iterf (cdr listt)))
+      emptyLst
+    (iterf (cdr listt) (push (car listt) emptyLst))
   )
 )
 
-(print (iterf '(1 2 3 4 5)))
+;(setq x '(a b c d))
+
+(print (iterf '(a b c d) nil) )
 ;     (load "testfile.lisp")
 ;
