@@ -1,11 +1,12 @@
 ; This program will read text from file "sampletext.txt" and extract all
 ; words starting with the letter 'm' or 'M'
 
-(defun myRead ()
-  (let ((in (open "./sampletext.txt" :if-does-not-exist nil)))
+(defun myRead (filein fileout)
+  (myClear fileout)
+  (let ((in (open filein :if-does-not-exist nil)))
    (when in
       (loop for line = (read-line in nil)
-        while line do (printLine line))
+        while line do (myWrite line fileout))
       (close in)
       (write-line "")
    )
@@ -17,9 +18,10 @@
 )
 
 ; given a list of strings, print to terminal and write to a file
-(defun myWrite (line)
-  (with-open-file (stream "myout.txt" :direction :output :if-exists :append :if-does-not-exist :create)
+(defun myWrite (line fileout)
+  (with-open-file (stream fileout :direction :output :if-exists :append :if-does-not-exist :create)
     (format stream line)
+    (format stream "~%")
   )
 )
 
@@ -35,4 +37,4 @@
   )
 )
 
-(myWriteList "else")
+(myRead "sampletext.txt" "myout.txt")
