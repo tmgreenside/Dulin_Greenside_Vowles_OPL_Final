@@ -57,7 +57,8 @@
 
 (defun getResource (line)
   (if (= (isNil (cl-ppcre:scan "jpg|png|pdf|gif" line)) 1)
-    (asdf:run-shell-command (concatenate 'string "wget " line))
+    (print line)
+    ;(asdf:run-shell-command (concatenate 'string "wget " line))
     nil
   )
 )
@@ -82,6 +83,11 @@
 ;***************************;
 ;Don't delete this print line! IT is for the function get_all_links_full that is currently broken
 
+(print "Here goes nothing.")
+(if (= (isNil (asdf:run-shell-command "ping https://www.tutorialspoint.com/")) 1)
+  (print "It is up")
+  (print "The server is down")
+)
 (setq linksList (get_all_links_full "https://www.tutorialspoint.com/lisp/lisp_functions.htm" "https://www.tutorialspoint.com/" (get_all_links "https://www.tutorialspoint.com/lisp/lisp_functions.htm") nil ))
 (myClear "links.txt")
 (loop for link in linksList
