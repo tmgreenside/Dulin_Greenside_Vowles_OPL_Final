@@ -68,6 +68,7 @@
   ))
 )
 
+; Appends a line to a file
 (defun myWrite (line fileout)
   (with-open-file (stream fileout :direction :output :if-exists :append :if-does-not-exist :create)
     (format stream line)
@@ -75,10 +76,13 @@
   )
 )
 
+; eliminates content from a passed-in file
 (defun myClear (filename)
   (with-open-file (stream filename :direction :output :if-exists :supersede))
 )
 
+; gets all jpg, png, pdf, and gif files from a site by means of the
+; getResource helper function.
 (defun getAllResources (linkListFile)
   (let ((in (open linkListFile :if-does-not-exist nil)))
    (when in
@@ -90,6 +94,7 @@
   )
 )
 
+; helper function for the getAllResources function above.
 (defun getResource (line)
   (if (= (isNil (cl-ppcre:scan "jpg|png|pdf|gif" line)) 1)
     (print line)
@@ -107,6 +112,7 @@
     1)
 )
 
+; Prints a list of links to the terminal
 (defun print_list (links)
   (if (null links)
     nil
@@ -117,6 +123,7 @@
   (print_list (cdr links))
   )
 )
+
 ; removes the prefix of the list
 (defun remove_prefix (my_string)
   (subseq my_string 6)
