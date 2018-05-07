@@ -129,6 +129,22 @@
   (subseq my_string 6)
 )
 
+; adds 'h' to strings beginning with "ttps"
+;returns a list of strings of all links - those with "ttps" now include "https"
+(defun addH (links_list fixed_links)
+  (if (null links_list)
+    fixed_links ; empty list
+
+  (if (< (isNil (cl-ppcre:scan "^ttp" (remove_prefix (first links_list)))) 1 )
+
+    (addH (cdr links_list) (push (concatenate 'string 'h' (first links_list)) fixed_links))
+
+    (addH (cdr links_list) (push (first links_list) fixed_links))
+
+  ))
+  )
+
+
 ;    (load "requests.lisp")
 ;    ("href=\"/favicon.ico"
 
@@ -144,8 +160,9 @@
 (setq edit_linked (notgetmailto links nil))
 (setq mailto (getmailto links nil))
 
-(setq fixed_links (get_all_links_full page base edit_linked nil))
-(print_list fixed_links)
+(setq fixed_links1 (get_all_links_full page base edit_linked nil))
+;(print_list fixed_links)
+
 
 ;(print (get_all_links_full "https://www.tutorialspoint.com/lisp/lisp_functions.htm" "https://www.tutorialspoint.com/" (get_all_links "https://www.tutorialspoint.com/lisp/lisp_functions.htm") nil ))
 (print "Here goes nothing.")
