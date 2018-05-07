@@ -152,4 +152,7 @@
 (loop for link in fixed_links
   do (myWrite link "links.txt")
 )
+(loop for link in mailto
+  do (myWrite link "links.txt")
+)
 (getAllResources "links.txt")
