@@ -40,6 +40,28 @@
   )
 )
 
+(defun myClear (filename)
+  (with-open-file (stream filename :direction :output :if-exists :supersede))
+)
+
+(defun getAllResources (linkListFile)
+  (let ((in (open linkListFile :if-does-not-exist nil)))
+   (when in
+    (loop for line = (read-line in nil)
+      while line do (getResource line))
+    (close in)
+    (write-line "")
+   )
+  )
+)
+
+(defun getResource (line)
+  (if (= (isNil (cl-ppcre:scan "jpg|png|pdf|gif" line)) 1)
+    (asdf:run-shell-command (concatenate 'string "wget " line))
+    nil
+  )
+)
+
 ;; returns 0 if the list is nil, 1 otherwise
 ;src, mail,
 (defun isNil (str)
@@ -60,8 +82,9 @@
 ;***************************;
 ;Don't delete this print line! IT is for the function get_all_links_full that is currently broken
 
-(setq linksList (get_all_links_full "https://www.tutorialspoint.com/lisp/lisp_functions.htm" "https://www.tutorialspoint.com" (get_all_links "https://www.tutorialspoint.com/lisp/lisp_functions.htm") nil ))
-(asdf:run-shell-command "rm links.txt")
+(setq linksList (get_all_links_full "https://www.tutorialspoint.com/lisp/lisp_functions.htm" "https://www.tutorialspoint.com/" (get_all_links "https://www.tutorialspoint.com/lisp/lisp_functions.htm") nil ))
+(myClear "links.txt")
 (loop for link in linksList
   do (myWrite link "links.txt")
 )
+(getAllResources "links.txt")
