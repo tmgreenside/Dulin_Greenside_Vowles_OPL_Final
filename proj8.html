@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;
+      charset=windows-1252">
+    <meta name="Generator" content="Microsoft Word 97">
+    <meta name="Template" content="C:\Program Files\Microsoft
+      Office\Office\html.dot">
+    <meta name="GENERATOR" content="Mozilla/4.76 [en] (Windows NT 5.0;
+      U) [Netscape]">
+    <title>assign4</title>
+    <link href="../../../style1.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+<!--
+.style1 {
+	font-family: "Comic Sans MS";
+	font-size: 14px;
+}
+.style2 {
+	font-size: 14px
+}
+.style3 {font-family: "Comic Sans MS"}
+-->
+  </style>
+  </head>
+  <body vlink="#800080" link="#0000ff">
+    <center>
+      <h2 align="center">Project 8</h2>
+      <h3 align="left"><b>This assignment asks you to produce an
+          interface for a program that will play Othello along with a
+          short and informal (for now) description of the structure of
+          your system. The completed game will be your final
+          examination. </b></h3>
+      <h3 align="left">Produce an interface for Othello that conforms to
+        the following rules, specifications, and conventions. </h3>
+      <h4 align="left"><b>Rules:</b></h4>
+      <ul>
+        <li>
+          <div align="left">
+            <h3><font size="-1">You may write your interface so that it
+                runs under Windows or Linux or Mac Os (in which case,
+                you must bring a laptop to the lab)</font></h3>
+            <h3> </h3>
+          </div>
+        </li>
+        <li>
+          <div align="left">
+            <h3> </h3>
+            <h3><font size="-1">The interface may be text-based or a GUI
+              </font></h3>
+            <h3> </h3>
+          </div>
+          <h3> </h3>
+        </li>
+        <li>
+          <div align="left">
+            <h3> </h3>
+            <h3><font size="-1">It may be coded in C++, java, python, or
+                any other programming language that will run in the lab
+                or on your laptop</font></h3>
+            <h3> </h3>
+          </div>
+          <h3> </h3>
+        </li>
+        <li>
+          <div align="left">
+            <h3> </h3>
+            <h3><font size="-1">If using an OO language, try to use
+                everything you have learned about object-oriented
+                programming in this assignment.&nbsp; At the very least,
+                there should be an othello class with board member
+                variable that is an 8 X 8 matrix. If using a non-OO
+                language, modularize your system. Use few or no global
+                variables.</font></h3>
+            <h3> </h3>
+          </div>
+          <h3> </h3>
+        </li>
+        <li>
+          <div align="left">
+            <h3><font size="-1">Make an appointment to show me your
+                interface and code.&nbsp; Your entire grade will be
+                based upon whether your interface meets the
+                specifications.&nbsp; Pay close attention.&nbsp; There
+                are many details and no partial credit.&nbsp; Any
+                deviance from the specs means a return trip to my office
+                with all team members.<br>
+              </font></h3>
+          </div>
+        </li>
+      </ul>
+    </center>
+    <h3>Specifications for interaction. <br>
+    </h3>
+    <h3>Though the game will have no AI yet, I'll expect to be able to
+      go through the sequence of moves described below. </h3>
+    <h4>P = Player<br>
+      A = AI Player<br>
+      S = System that keeps track of things<br>
+      See "Conventions," below for details on the look of the board and
+      other important items. </h4>
+    <h4>Play takes place on two computers. Suppose Team 1's A makes a
+      move. Team 2 enters that move on its computer. Now Team 2's A
+      makes a move. Team 1 enters that move on its computer. Continue
+      the process until play concludes. </h4>
+    <h4>Specifically:</h4>
+    <ol>
+      <li>
+        <h3 class="style2">S displays the initial board configuration.
+          Scoreboard indicates that both black and white have a score of
+          2.</h3>
+      </li>
+      <li class="style2">
+        <h4><span class="style3">S asks P if he/she wants to be black or
+            white (the teams have previously determined between
+            themselves who will go first, i.e., who will be black)</span></h4>
+      </li>
+      <li class="style2">
+        <h4><span class="style3">S reads P's answer. If P chooses black,
+            go to step 12.</span></h4>
+      </li>
+      <li class="style2">
+        <h4><span class="style3">If P chooses white, A announces that it
+            is about to make a move and asks P for approval.</span></h4>
+      </li>
+      <li class="style2">
+        <h4><span class="style3">S reads P's answer.</span></h4>
+      </li>
+      <li class="style2">
+        <h4><span class="style3">S displays the position where A has
+            placed a token in row/column format. This can be done in any
+            way you choose, as long as it's clear.</span></h4>
+      </li>
+      <li class="style2">
+        <h4>If A can't make a move, A announces that fact. </h4>
+      </li>
+      <li class="style2">
+        <h4><span class="style3">The board configuration now includes
+            the new token (if one has been played). The square where the
+            move occurred along with all squares affected by the move
+            are highlighted.</span></h4>
+      </li>
+      <li class="style2">
+        <h4><span class="style3">S asks for confirmation.</span></h4>
+      </li>
+      <li class="style2">
+        <h4><span class="style3">S reads P ’s answer.</span></h4>
+      </li>
+      <li class="style2">
+        <h4><span class="style3">After P has confirmed, S changes the
+            board configuration and the scoreboard to reflect the
+            results of the new move.</span></h4>
+      </li>
+      <li class="style2">
+        <h4><span class="style3">S asks P to make a move.</span></h4>
+      </li>
+      <li class="style2">
+        <h4><span class="style3">S reads P ’s answer.</span></h4>
+      </li>
+      <li class="style2">
+        <h4><span class="style3">The board configuration now includes
+            the new token. The square where the move occurred along with
+            all squares affected by the move are highlighted.</span></h4>
+      </li>
+      <li class="style2">
+        <h4><span class="style3">S asks for confirmation.</span></h4>
+      </li>
+      <li class="style2">
+        <h4><span class="style3">After A has confirmed (actually, the
+            user must confirm for A), S changes the board configuration
+            and the scoreboard to reflect the results of the new move.</span></h4>
+      </li>
+      <li class="style2">
+        <h4><span class="style3">Continue this process until P quits by
+            pressing a designated key or until there are no more moves.
+          </span></h4>
+      </li>
+    </ol>
+    <h3>Conventions and Additional Rules</h3>
+    <ul>
+      <li>
+        <h4><span class="style3">The board is an 8 x 8 matrix with an
+            initial configuration like this:<br>
+            WB <br>
+            BW</span><br>
+        </h4>
+      </li>
+      <li>
+        <h4>Your game allows the initial configuration to be changed to:<br>
+          BW<br>
+          WB </h4>
+      </li>
+      <li>
+        <h4><span class="style3">Columns are labeled ‘A’ to ‘H’ from
+            left to right. </span><span class="style3">Rows are labeled
+            ‘1’ to ‘8’ from top to bottom</span>. The system must
+          display move coordinates</h4>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <h4><span class="style3">Designate squares like this</span> </h4>
+        <blockquote>
+          <h4><span class="style3">Black occupies a square: B or place a
+              black shape on the square</span></h4>
+          <h4><span class="style3">White occupies a square: W or place a
+              white shape on the square</span></h4>
+        </blockquote>
+      </li>
+      <li>
+        <h4><span class="style3">There is a score board that displays
+            the number of black and the number of white tokens on the
+            board.</span></h4>
+      </li>
+      <li>
+        <h4>Black goes first. Players choose who is black.</h4>
+      </li>
+      <li>
+        <h4>Your system may not decline to move if one is available</h4>
+      </li>
+      <li>
+        <h4>Each system must display a timer that ticks off seconds
+          starting from 10 when a move is initiated. A system whose AI
+          fails to move within 10 seconds forfeits the game.<br>
+        </h4>
+      </li>
+      <li>
+        <h4>Your system must always save the prior board state and
+          designate a mechanism by which it can be returned to in the
+          event of a dispute</h4>
+      </li>
+      <li>
+        <h4>Play ends when neither player can make a move. The player
+          with the most discs wins.</h4>
+      </li>
+    </ul>
+    <h4>&nbsp;</h4>
+    <blockquote>
+      <p><span class="style1"><br>
+          &nbsp; </span></p>
+    </blockquote>
+    <ul>
+      <h4>&nbsp;</h4>
+    </ul>
+  </body>
+</html>
