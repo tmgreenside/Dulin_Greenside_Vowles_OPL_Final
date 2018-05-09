@@ -173,7 +173,7 @@
 
 ;(setq linksList (get_all_links_full "https://www.tutorialspoint.com/lisp/lisp_functions.htm" "https://www.tutorialspoint.com/" (get_all_links "https://www.tutorialspoint.com/lisp/lisp_functions.htm") nil ))
 (myClear "links.txt")
-(loop for link in fixed_links
+(loop for link in fixed_links1
   do (myWrite link "links.txt")
 )
 (loop for link in mailto
