@@ -1,10 +1,15 @@
+;;; How to run:
+;;; 1. open sbcl (steel bank common lisp)
+;;; 2.0 Ensure that quicklisp is installed. Further, download dexador and cl-ppcre
+;;; 2.1 Type: (load "requests.lisp") into the command line
+;;; 3. Watch the magic happen!
+
 (load "~/quicklisp/setup.lisp") ;package installer for lisp
 (ql:quickload "dexador") ;for get requests
 (ql:quickload :cl-ppcre) ;for regex
 (require "asdf")
 
 
-; https://edicl.github.io/cl-ppcre/
 ;gets the physical page from the website
 (defun get_page (request)
   (dex:get request)
@@ -31,7 +36,7 @@
   ))
 )
 
-; gets all of the mail to links out of the page
+; gets all of the mail to links out of the page then removes them.
 (defun notgetmailto (links_list not_mail_to_links)
   (if (null links_list)
     not_mail_to_links ; empty list
@@ -48,11 +53,12 @@
 ; page is the page being searched
 ; base is the base set of the page
 ; links_list is the full list of what was taken from the website
-;holy shit, this works... and we hate lisp
+; holy sh**, this works... and we hate lisp
 (defun get_all_links_full (page base links_list fixed_links)
   (if (null links_list)
     fixed_links ; empty list
 
+  ;; had an issue with the remove_prefix function. But, didn't want to nest ifs. So, it's fixed later on.
   (if (< (isNil (cl-ppcre:scan "ttp" (remove_prefix (first links_list)))) 1 )
 
     (get_all_links_full page base
@@ -135,48 +141,45 @@
   (if (null links_list)
     fixed_links ; empty list
 
-  (if (< (isNil (cl-ppcre:scan "^ttp" (remove_prefix (first links_list)))) 1 )
-
-    (addH (cdr links_list) (push (concatenate 'string 'h' (first links_list)) fixed_links))
-
-    (addH (cdr links_list) (push (first links_list) fixed_links))
-
+  (if (< (isNil (cl-ppcre:scan "^ttp" (first links_list))) 1 )
+    (addH (cdr links_list)
+      (push (first links_list)
+      fixed_links))
+    (addH (cdr links_list)
+      (push (concatenate 'string "h" (first links_list)) fixed_links))
   ))
-  )
+)
 
 
-;    (load "requests.lisp")
-;    ("href=\"/favicon.ico"
-
-; Expand requests to write them to a file
-; Image link to grab images; save them in local system.
-; mail and other links...
-
+;;;;;;
+; Gets all of the links, mailto-links from the website
+;;;;;;
 ; base domain of the website
 (setq base "https://css-tricks.com/")
 (setq page "https://css-tricks.com/snippets/html/mailto-links/")
 (setq links (get_all_links page))
-;(setq edit_linked (notgetmailto nil))
+
 (setq edit_linked (notgetmailto links nil))
 (setq mailto (getmailto links nil))
 
 (setq fixed_links1 (get_all_links_full page base edit_linked nil))
-;(print_list fixed_links)
+(setq final (addH fixed_links1 nil))
+(print_list final)
 
-
-;(print (get_all_links_full "https://www.tutorialspoint.com/lisp/lisp_functions.htm" "https://www.tutorialspoint.com/" (get_all_links "https://www.tutorialspoint.com/lisp/lisp_functions.htm") nil ))
-(print "Here goes nothing.")
+;;; Pings the server
 (if (= (isNil (asdf:run-shell-command "ping https://www.tutorialspoint.com/")) 1)
   (print "It is up")
   (print "The server is down")
 )
 
-;(setq linksList (get_all_links_full "https://www.tutorialspoint.com/lisp/lisp_functions.htm" "https://www.tutorialspoint.com/" (get_all_links "https://www.tutorialspoint.com/lisp/lisp_functions.htm") nil ))
+;;writes the links to a file
 (myClear "links.txt")
-(loop for link in fixed_links
+(loop for link in final
   do (myWrite link "links.txt")
 )
 (loop for link in mailto
   do (myWrite link "links.txt")
 )
+
+;; Gets all of the pictures
 (getAllResources "links.txt")
